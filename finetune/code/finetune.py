@@ -18,20 +18,21 @@ from peft import (
 )
 
 def generate_prompt(data_point):
-    # 根據 chat.py 和 chatRAG.py 修改 prompt 格式，加入醫療助手相關設定
+    # sorry about the formatting disaster gotta move fast
     if data_point["input"]:
-        return f"""如果你是醫生，請根據病人的描述以專業醫療知識回應。請注意描述中的重要醫學資訊，如身體部位的症狀、頻率、持續時間。
-
-病人: {data_point["instruction"]}
+        return f"""下方是一個關於任務的指令，以及一個提供與任務相關之資訊的輸入。請撰寫一個能適當地完成該任務指令需求的回覆。
+### 指令:
+{data_point["instruction"]}
+### 輸入:
 {data_point["input"]}
-
-醫療小天使: {data_point["output"]}"""
+### 回覆:
+{data_point["output"]}"""
     else:
-        return f"""如果你是醫生，請根據病人的描述以專業醫療知識回應。請注意描述中的重要醫學資訊，如身體部位的症狀、頻率、持續時間。
-
-病人: {data_point["instruction"]}
-
-醫療小天使: {data_point["output"]}"""
+        return f"""下方是一個關於任務的指令。請撰寫一個能適當地完成該任務指令需求的回覆。
+### 輸入:
+{data_point["instruction"]}
+### 回覆:
+{data_point["output"]}"""
 
 def tokenize(prompt):
     # there's probably a way to do this with the tokenizer settings
@@ -48,23 +49,25 @@ def tokenize(prompt):
     }
 
 def generate_and_tokenize_prompt(data_point):
-    # 修改此函數以使用與 chat.py 和 chatRAG.py 一致的 prompt 格式
+    # This function masks out the labels for the input,
+    # so that our loss is computed only on the response.
     user_prompt = (
         (
-            f"""如果你是醫生，請根據病人的描述以專業醫療知識回應。請注意描述中的重要醫學資訊，如身體部位的症狀、頻率、持續時間。
-
-病人: {data_point["instruction"]}
+            f"""下方是一個關於任務的指令，以及一個提供與任務相關之資訊的輸入。請撰寫一個能適當地完成該任務需求的回覆。
+### 指令:
+{data_point["instruction"]}
+### 輸入:
 {data_point["input"]}
-
-醫療小天使: """
+### 回覆:
+"""
         )
         if data_point["input"]
         else (
-            f"""如果你是醫生，請根據病人的描述以專業醫療知識回應。請注意描述中的重要醫學資訊，如身體部位的症狀、頻率、持續時間。
-
-病人: {data_point["instruction"]}
-
-醫療小天使: """
+            f"""下方是一個關於任務的指令。請撰寫一個能適當地完成該任務需求的回覆。
+### 輸入:
+{data_point["instruction"]}
+### 回覆:
+"""
         )
     )
     len_user_prompt_tokens = (
