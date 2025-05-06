@@ -34,10 +34,6 @@
 pip install torch transformers peft bitsandbytes datasets langchain chromadb
 ```
 
-### 硬體需求
-- 微調：建議搭配NVIDIA顯卡（至少8GB顯存）
-- 推理：至少4GB顯存
-
 ## 使用方法
 
 ### 1. 準備知識庫
