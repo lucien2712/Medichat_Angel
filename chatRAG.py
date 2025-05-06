@@ -68,9 +68,9 @@ if args.peft_path:
 
 model.config.temperature = 0.2
 model.config.top_p = 0.9
-model.config.top_k = 40,
-model.config.num_beams=1,
-model.config.repetition_penalty=1.3,
+model.config.top_k = 40
+model.config.num_beams=1
+model.config.repetition_penalty=1.3
 model.config.max_new_tokens=200
 
 

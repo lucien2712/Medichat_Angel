@@ -22,7 +22,7 @@
 ├── chat.py               # 基礎聊天功能
 ├── chatRAG.py            # 檢索增強生成聊天功能
 ├── embedding.py          # 向量嵌入生成工具
-├── disease.txt           # 醫療知識庫文本
+├── disease/              # 醫療知識庫文本目錄
 └── README.md             # 本文件
 ```
 
@@ -34,16 +34,17 @@
 pip install torch transformers peft bitsandbytes datasets langchain chromadb
 ```
 
+
 ## 使用方法
 
 ### 1. 準備知識庫
 
-將醫療相關文本放入`disease.txt`或在`./disease/`目錄中：
+將醫療相關文本放入`./disease/`目錄中：
 
 ```bash
 # 確保以下目錄存在
 mkdir -p ./disease/
-# 將醫療知識文件放入上述目錄
+# 將醫療知識文件放入上述目錄 (*.txt格式)
 ```
 
 ### 2. 生成嵌入向量
