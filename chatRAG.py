@@ -23,7 +23,7 @@ model = args.model
 tokenizer = args.model
 
 device_map = args.device_map
-device = "gpu"
+device = "cuda" if torch.cuda.is_available() else "cpu"
 if device_map == "zero":
         device_map = "balanced_low_0"
         device = "cpu"
