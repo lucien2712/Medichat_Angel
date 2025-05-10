@@ -8,7 +8,7 @@
 
 - **基礎聊天功能**: 使用微調過的LLaMA模型進行醫療問答
 - **檢索增強生成**: 結合向量資料庫實現基於知識庫的精準回答
-- **模型微調**: 提供完整的LLaMA模型微調流程
+- **模型微調**: 完整的LLaMA模型微調流程
 - **向量嵌入**: 支援將醫療知識轉換為向量形式用於檢索
 
 ## 目錄結構
@@ -23,15 +23,7 @@
 ├── chatRAG.py            # 檢索增強生成聊天功能
 ├── embedding.py          # 向量嵌入生成工具
 ├── disease/              # 醫療知識庫文本目錄
-└── README.md             # 本文件
-```
-
-## 安裝與依賴
-
-本專案需要安裝以下主要套件：
-
-```bash
-pip install torch transformers peft bitsandbytes datasets langchain chromadb
+└── README.md             
 ```
 
 
@@ -66,18 +58,14 @@ python finetune/code/finetune.py \
   --model_name "llama-chinese" \
   --dataset_dir "finetune/data/train_data.json" \
   --output_dir "output" \
-  --cache_dir "../cache" \
   --num_epoch 3 \
-  --wandb_run_name "medical_assistant_finetune"
 ```
 
 #### 主要參數：
 - `--model_name`: 基礎模型路徑
 - `--dataset_dir`: 訓練資料集路徑
 - `--output_dir`: 輸出模型路徑
-- `--cache_dir`: 快取目錄
 - `--num_epoch`: 訓練輪數
-- `--wandb_run_name`: Weights & Biases 執行名稱
 - `--from_ckpt`: 是否從檢查點繼續訓練
 - `--ckpt_name`: 檢查點路徑
 
@@ -92,7 +80,6 @@ python chat.py --model "llama-chinese" --peft_path "output"
 #### 主要參數：
 - `--model`: 基礎模型路徑
 - `--peft_path`: 微調模型路徑
-- `--device_map`: 裝置映射策略 (預設為"auto")
 
 ### 5. 檢索增強生成聊天
 
