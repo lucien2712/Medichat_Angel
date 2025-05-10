@@ -7,8 +7,6 @@ import argparse
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import ConversationalRetrievalChain
-from langchain.document_loaders import DirectoryLoader
-from langchain.text_splitter import TokenTextSplitter
 from langchain.prompts import SystemMessagePromptTemplate,ChatPromptTemplate
 
 import torch
@@ -36,23 +34,16 @@ print('gpu_count', gpu_count)
 
 
 #embedding the document
-embedding_model= tokenizer
-embeddings = HuggingFaceEmbeddings(model_name=embedding_model,
+embeddings = HuggingFaceEmbeddings(model_name='GanymedeNil/text2vec-large-chinese',
                                                 model_kwargs={'device': device})   
 
-loader = DirectoryLoader('./disease/', glob='*.txt',show_progress=True)
-documents = loader.load()
-
-# 初始化加载器
-text_splitter = TokenTextSplitter(chunk_size=300, chunk_overlap=10)
-# chunk_size參數用來指定每塊文本的大小(字元)、chunk_overlap參數用來指定每塊文本的重疊率。
-
-# 切割加载的 document
-split_docs = text_splitter.split_documents(documents)
-docsearch = Chroma.from_documents(split_docs, embeddings)
+# 從持久化目錄載入已建立的向量資料庫
+persist_directory = './db'
+docsearch = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
 
 #加載模型
 #------------------------------------------------------------>load model
+tokenizer = LlamaTokenizer.from_pretrained(tokenizer)
 model = LlamaForCausalLM.from_pretrained(
         model,
         device_map=device_map,
