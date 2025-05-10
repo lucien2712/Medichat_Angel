@@ -9,7 +9,6 @@ from langchain.vectorstores import Chroma
 from langchain.chains import ConversationalRetrievalChain
 from langchain.prompts import SystemMessagePromptTemplate,ChatPromptTemplate
 
-import torch
 parser = argparse.ArgumentParser(description='輸入模型設定資訊')
 parser.add_argument('--model', type=str, required=True)
 parser.add_argument('--peft_path', type=str, required=False)
