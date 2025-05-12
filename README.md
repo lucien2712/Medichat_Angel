@@ -17,12 +17,12 @@
 .
 ├── finetune
 │   ├── code
-│   │   └── finetune.py   # 模型微調腳本
-│   └── data              # 訓練資料存放處
-├── chat.py               # 基礎聊天功能
-├── chatRAG.py            # 檢索增強生成聊天功能
-├── embedding.py          # 向量嵌入生成工具
-├── disease/              # 醫療知識庫文本目錄
+│   │   └── finetune.py  
+│   └── data              
+├── chat.py              
+├── chatRAG.py         
+├── embedding.py        
+├── disease/            
 └── README.md             
 ```
 
@@ -32,12 +32,6 @@
 ### 1. 準備知識庫
 
 將醫療相關文本放入`./disease/`目錄中：
-
-```bash
-# 確保以下目錄存在
-mkdir -p ./disease/
-# 將醫療知識文件放入上述目錄 (*.txt格式)
-```
 
 ### 2. 生成嵌入向量
 
